@@ -43,3 +43,18 @@ Where:
 * the rest: `12919|98.778, 1292|101.096, 1293|443.955, 1293|670.842` is throughput and max response time for the other kind of transactions and can be ignored
 
 
+
+
+
+
+
+
+
+```
+mysqladmin -uroot -p create tpcc1000
+mysql -uroot -p  tpcc1000 < create_table.sql
+mysql -uroot -p tpcc1000 < add_fkey_idx.sql
+./tpcc_load -h127.0.0.1 -d tpcc1000 -uroot root -p "wangxinshuo" -w 1000
+sudo ./tpcc_start -h127.0.0.1 -P3306 -dtpcc1000 -uroot -p wangxinshuo -w1000 -c4 -r10 -l60
+```
+
