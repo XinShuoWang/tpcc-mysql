@@ -1,3 +1,5 @@
+# Old
+## Step
 1. Build binaries
    * `cd src ; make`
    ( you should have mysql_config available in $PATH)
@@ -22,8 +24,7 @@
    * |hostname| |port| |dbname| |user| |WAREHOUSES| |CONNECTIONS| |WARMUP TIME| |BENCHMARK TIME|
    * ref. tpcc_start --help for all options 
 
-Output
-===================================
+## Output
 
 With the defined interval (-i option), the tool will produce the following output:
 ```
@@ -44,13 +45,11 @@ Where:
 
 
 
-
-
-
-
+# Young
 
 
 ```
+cd src && make
 mysqladmin -uroot -p create tpcc1000
 mysql -uroot -p  tpcc1000 < create_table.sql
 mysql -uroot -p tpcc1000 < add_fkey_idx.sql
