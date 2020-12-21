@@ -1,31 +1,14 @@
-# Old
-## Step
-1. Build binaries
-   * `cd src ; make`
-   ( you should have mysql_config available in $PATH)
-
-2. Load data
-   * create database
-     `mysqladmin create tpcc1000`
-   * create tables
-     `mysql tpcc1000 < create_table.sql`
-   * create indexes and FK ( this step can be done after loading data)
-     `mysql tpcc1000 < add_fkey_idx.sql`
-   * populate data
-     - simple step
-       `tpcc_load -h127.0.0.1 -d tpcc1000 -u root -p "" -w 1000`
-                 |hostname:port| |dbname| |user| |password| |WAREHOUSES|
-       ref. tpcc_load --help for all options
-     - load data in parallel 
-       check load.sh script
-
-3. Start benchmark
-   * `./tpcc_start -h127.0.0.1 -P3306 -dtpcc1000 -uroot -w1000 -c32 -r10 -l10800`
-   * |hostname| |port| |dbname| |user| |WAREHOUSES| |CONNECTIONS| |WARMUP TIME| |BENCHMARK TIME|
-   * ref. tpcc_start --help for all options 
-
-## Output
-
+# MySQL
+## Test
+```
+cd src && make
+mysqladmin -uroot -p create tpcc1000
+mysql -uroot -p  tpcc1000 < create_table.sql
+mysql -uroot -p tpcc1000 < add_fkey_idx.sql
+./tpcc_load -h127.0.0.1 -d tpcc1000 -uroot root -p "wangxinshuo" -w 1000
+sudo ./tpcc_start -h127.0.0.1 -P3306 -dtpcc1000 -uroot -p wangxinshuo -w1000 -c4 -r10 -l60
+```
+## Result
 With the defined interval (-i option), the tool will produce the following output:
 ```
   10, trx: 12920, 95%: 9.483, 99%: 18.738, max_rt: 213.169, 12919|98.778, 1292|101.096, 1293|443.955, 1293|670.842
@@ -45,15 +28,15 @@ Where:
 
 
 
-# Young
-
-
+# OceanBase
+## test
 ```
 cd src && make
-mysqladmin -uroot -p create tpcc1000
-mysql -uroot -p  tpcc1000 < create_table.sql
+mysql -h 10.11.1.196 -P 60004 -uadmin -padmin  tpcc1000 < create_table.sql
 mysql -uroot -p tpcc1000 < add_fkey_idx.sql
 ./tpcc_load -h127.0.0.1 -d tpcc1000 -uroot root -p "wangxinshuo" -w 1000
 sudo ./tpcc_start -h127.0.0.1 -P3306 -dtpcc1000 -uroot -p wangxinshuo -w1000 -c4 -r10 -l60
 ```
+
+## Result
 
